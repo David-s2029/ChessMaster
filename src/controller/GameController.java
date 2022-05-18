@@ -2,14 +2,17 @@ package controller;
 
 import view.Chessboard;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 
 public class GameController {
     private Chessboard chessboard;
+    public static int cnt=0;
 
     public GameController(Chessboard chessboard) {
         this.chessboard = chessboard;
@@ -28,5 +31,8 @@ public class GameController {
     }
 
     public void saveGame(){
+        cnt++;
+        File file= new File("resource/save"+cnt+".txt");
+
     }
 }

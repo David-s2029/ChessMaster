@@ -20,11 +20,11 @@ public class KingChessComponent extends ChessComponent {
 
     public void loadResource() throws IOException {
         if (KING_WHITE == null) {
-            KING_WHITE= ImageIO.read(new File("./images/king-white.png"));
+            KING_WHITE= ImageIO.read(new File("./images/king-white.gif"));
         }
 
         if (KING_BLACK == null) {
-            KING_BLACK = ImageIO.read(new File("./images/king-black.png"));
+            KING_BLACK = ImageIO.read(new File("./images/king-black.gif"));
         }
     }
 

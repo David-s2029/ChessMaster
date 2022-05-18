@@ -32,11 +32,11 @@ public class RookChessComponent extends ChessComponent {
      */
     public void loadResource() throws IOException {
         if (ROOK_WHITE == null) {
-            ROOK_WHITE = ImageIO.read(new File("./images/rook-white.png"));
+            ROOK_WHITE = ImageIO.read(new File("./images/rook-white.gif"));
         }
 
         if (ROOK_BLACK == null) {
-            ROOK_BLACK = ImageIO.read(new File("./images/rook-black.jpg"));
+            ROOK_BLACK = ImageIO.read(new File("./images/rook-black.gif"));
         }
     }
 
