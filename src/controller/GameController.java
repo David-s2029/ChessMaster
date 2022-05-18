@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 public class GameController {
     private Chessboard chessboard;
-    public static int cnt=0;
 
     public GameController(Chessboard chessboard) {
         this.chessboard = chessboard;
@@ -31,8 +30,15 @@ public class GameController {
     }
 
     public void saveGame(){
-        cnt++;
-        File file= new File("resource/save"+cnt+".txt");
-
+        int cnt=0;
+        while (true){
+            String path=String.format("resource/save%d.txt",cnt);
+            if (Files.exists(Paths.get(path))){
+                cnt++;
+            }else {
+//                Files.createFile(Paths.get(path),
+                break;
+            }
+        }
     }
 }

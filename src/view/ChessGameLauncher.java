@@ -25,9 +25,9 @@ public class ChessGameLauncher extends JFrame {
 
     private void addLabel() {
         JLabel statusLabel = new JLabel("ChessMaster");
-        statusLabel.setLocation(WIDTH / 2 - 80, HEIGHT / 10);
+        statusLabel.setLocation(WIDTH / 2 - 105, HEIGHT / 10);
         statusLabel.setSize(200, 60);
-        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 30));
         add(statusLabel);
     }
 
