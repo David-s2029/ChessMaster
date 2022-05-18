@@ -117,6 +117,5 @@ public class RookChessComponent extends ChessComponent {
         }
         g.drawImage(rookImage, 0, 0, getWidth() , getHeight(), this);
         g.setColor(Color.BLACK);
-
     }
 }
