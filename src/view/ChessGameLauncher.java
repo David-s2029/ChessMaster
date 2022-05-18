@@ -35,13 +35,14 @@ public class ChessGameLauncher extends JFrame {
         JButton button = new JButton("Start Game");
         buttonActionListener bal=new buttonActionListener();
         button.addActionListener(bal);
+//        button.addActionListener((e)-> JOptionPane.);
         button.setLocation(WIDTH / 2 - 110, HEIGHT / 10 + 200);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
     }
 
-    static class buttonActionListener implements ActionListener
+    class buttonActionListener implements ActionListener
     {
         @Override
         public void actionPerformed(ActionEvent e)
