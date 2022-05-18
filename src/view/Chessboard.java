@@ -4,6 +4,7 @@ import model.*;
 import controller.ClickController;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -149,6 +150,18 @@ public class Chessboard extends JComponent {
 
     private Point calculatePoint(int row, int col) {
         return new Point(col * CHESS_SIZE, row * CHESS_SIZE);
+    }
+
+    public List<String> saveGame(){
+        List<String> save=new ArrayList<>();
+        for (int i = 0; i <= 7; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j <= 7; j++) {
+                sb.append(chessComponents[i][j].getName());
+            }
+            save.add(sb.toString());
+        }
+        return save;
     }
 
     public void loadGame(List<String> chessData) {
