@@ -2,8 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 public class ChessGameLauncher extends JFrame {
     private final int WIDTH;
@@ -33,22 +32,14 @@ public class ChessGameLauncher extends JFrame {
 
     private void addStartButton() {
         JButton button = new JButton("Start Game");
-        buttonActionListener bal=new buttonActionListener();
-        button.addActionListener(bal);
-//        button.addActionListener((e)-> JOptionPane.);
+        button.addActionListener((e) -> {
+            ChessGameFrame mainFrame = new ChessGameFrame(1000, 760);
+            mainFrame.setVisible(true);
+            this.setVisible(false);
+        });
         button.setLocation(WIDTH / 2 - 110, HEIGHT / 10 + 200);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
-    }
-
-    class buttonActionListener implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e)
-        {
-            ChessGameFrame mainFrame = new ChessGameFrame(1000, 760);
-            mainFrame.setVisible(true);
-        }
     }
 }
