@@ -2,6 +2,7 @@ package controller;
 
 import view.Chessboard;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,12 +31,21 @@ public class GameController {
     public void saveGame(){
         int cnt=0;
         while (true){
-            String path=String.format("resource/save%d.txt",cnt);
-            if (Files.exists(Paths.get(path))){
-                cnt++;
-            }else {
-//                Files.createFile(Paths.get(path),
-                break;
+            try {
+                String path = String.format("resource/save%d.txt", cnt);
+                if (Files.exists(Paths.get(path))) {
+                    cnt++;
+                } else {
+                    FileWriter writer =new FileWriter(String.format("resource/save%d.txt", cnt));
+                    for (int i = 0; i < chessboard.saveGame().size(); i++) {
+                        writer.write(chessboard.saveGame().get(i));
+                        writer.write("\n");
+                    }
+                    writer.close();
+                    break;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
             }
         }
     }

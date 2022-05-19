@@ -2,6 +2,7 @@ package view;
 
 import model.*;
 import controller.ClickController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -47,16 +48,16 @@ public class Chessboard extends JComponent {
         initBishopOnBoard(0, CHESSBOARD_SIZE - 3, ChessColor.BLACK);
         initBishopOnBoard(CHESSBOARD_SIZE - 1, 2, ChessColor.WHITE);
         initBishopOnBoard(CHESSBOARD_SIZE - 1, CHESSBOARD_SIZE - 3, ChessColor.WHITE);
-        initQueenOnBoard(0,  4, ChessColor.BLACK);
+        initQueenOnBoard(0, 4, ChessColor.BLACK);
         initQueenOnBoard(CHESSBOARD_SIZE - 1, 4, ChessColor.WHITE);
-        initKingOnBoard(0,  3, ChessColor.BLACK);
+        initKingOnBoard(0, 3, ChessColor.BLACK);
         initKingOnBoard(CHESSBOARD_SIZE - 1, 3, ChessColor.WHITE);
         initKnightOnBoard(0, 1, ChessColor.BLACK);
         initKnightOnBoard(0, CHESSBOARD_SIZE - 2, ChessColor.BLACK);
         initKnightOnBoard(CHESSBOARD_SIZE - 1, 1, ChessColor.WHITE);
         initKnightOnBoard(CHESSBOARD_SIZE - 1, CHESSBOARD_SIZE - 2, ChessColor.WHITE);
         for (int i = 0; i < CHESSBOARD_SIZE; i++) {
-            initPawnOnBoard(1,  i, ChessColor.BLACK);
+            initPawnOnBoard(1, i, ChessColor.BLACK);
             initPawnOnBoard(CHESSBOARD_SIZE - 2, i, ChessColor.WHITE);
         }
     }
@@ -152,8 +153,8 @@ public class Chessboard extends JComponent {
         return new Point(col * CHESS_SIZE, row * CHESS_SIZE);
     }
 
-    public List<String> saveGame(){
-        List<String> save=new ArrayList<>();
+    public List<String> saveGame() {
+        List<String> save = new ArrayList<>();
         for (int i = 0; i <= 7; i++) {
             StringBuilder sb = new StringBuilder();
             for (int j = 0; j <= 7; j++) {

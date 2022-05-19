@@ -99,6 +99,12 @@ public abstract class ChessComponent extends JComponent {
         }
     }
 
+    @Override
+    public String getName() {
+        String n=String.valueOf(name);
+        return n;
+    }
+
     /**
      * @param chessboard  棋盘
      * @param destination 目标位置，如(0, 0), (0, 7)等等
