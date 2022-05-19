@@ -162,6 +162,8 @@ public class Chessboard extends JComponent {
             }
             save.add(sb.toString());
         }
+        if (currentColor==ChessColor.BLACK) save.add("B");
+        else save.add("w");
         return save;
     }
 

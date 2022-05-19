@@ -58,10 +58,6 @@ public class ChessGameFrame extends JFrame {
         add(statusLabel);
     }
 
-    /**
-     * 在游戏面板中增加一个按钮，如果按下的话就会显示Hello, world!
-     */
-
     private void addRestartButton() {
         JButton button = new JButton("Restart");
         button.addActionListener((e) -> {
@@ -79,6 +75,7 @@ public class ChessGameFrame extends JFrame {
         JButton button = new JButton("Save");
         button.addActionListener((e) -> {
             gameController.saveGame();
+            JOptionPane.showMessageDialog(this,"Current state successfully saved.");
         });
         button.setLocation(HEIGHT, HEIGHT / 10 + 360);
         button.setSize(200, 60);
