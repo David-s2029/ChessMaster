@@ -32,11 +32,11 @@ public class GameController {
         int cnt=0;
         while (true){
             try {
-                String path = String.format("resource/save%d.txt", cnt);
+                String path = String.format("save/save%d.txt", cnt);
                 if (Files.exists(Paths.get(path))) {
                     cnt++;
                 } else {
-                    FileWriter writer =new FileWriter(String.format("resource/save%d.txt", cnt));
+                    FileWriter writer =new FileWriter(String.format("save/save%d.txt", cnt));
                     for (int i = 0; i < chessboard.saveGame().size(); i++) {
                         writer.write(chessboard.saveGame().get(i));
                         writer.write("\n");
