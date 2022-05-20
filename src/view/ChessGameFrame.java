@@ -98,6 +98,7 @@ public class ChessGameFrame extends JFrame {
                 JOptionPane.showMessageDialog(this, "Invalid path, please try again.");
             //若棋盘属性不对则怎么怎么样
             gameController.loadGameFromFile(path);
+            chessboard.repaint();
         });
     }
 

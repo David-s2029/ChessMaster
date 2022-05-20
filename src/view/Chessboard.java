@@ -173,10 +173,37 @@ public class Chessboard extends JComponent {
     }
 
     public void loadGame(List<String> chessData) {
+        initiateEmptyChessboard();
         for (int i = 0; i < chessData.size() - 1; i++) {
             for (int j = 0; j < chessData.get(i).length(); j++) {
-
+                if (chessData.get(i).charAt(j) == '_') continue;
+                if (chessData.get(i).charAt(j) == 'K')
+                    initKingOnBoard(i,j,ChessColor.BLACK);
+                if (chessData.get(i).charAt(j) == 'k')
+                    initKingOnBoard(i,j,ChessColor.WHITE);
+                if (chessData.get(i).charAt(j) == 'R')
+                    initRookOnBoard(i,j,ChessColor.BLACK);
+                if (chessData.get(i).charAt(j) == 'r')
+                    initRookOnBoard(i,j,ChessColor.WHITE);
+                if (chessData.get(i).charAt(j) == 'B')
+                    initBishopOnBoard(i,j,ChessColor.BLACK);
+                if (chessData.get(i).charAt(j) == 'b')
+                    initBishopOnBoard(i,j,ChessColor.WHITE);
+                if (chessData.get(i).charAt(j) == 'Q')
+                    initQueenOnBoard(i,j,ChessColor.BLACK);
+                if (chessData.get(i).charAt(j) == 'q')
+                    initQueenOnBoard(i,j,ChessColor.WHITE);
+                if (chessData.get(i).charAt(j) == 'N')
+                    initKnightOnBoard(i,j,ChessColor.BLACK);
+                if (chessData.get(i).charAt(j) == 'n')
+                    initKnightOnBoard(i,j,ChessColor.WHITE);
+                if (chessData.get(i).charAt(j) == 'P')
+                    initPawnOnBoard(i,j,ChessColor.BLACK);
+                if (chessData.get(i).charAt(j) == 'p')
+                    initPawnOnBoard(i,j,ChessColor.WHITE);
             }
         }
+        if (chessData.get(chessData.size()-1).equals("B")) currentColor=ChessColor.BLACK;
+        if (chessData.get(chessData.size()-1).equals("w")) currentColor=ChessColor.WHITE;
     }
 }
