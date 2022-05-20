@@ -44,7 +44,7 @@ public class GameController {
                     writer.close();
                     break;
                 }
-            } catch (Exception e){
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }

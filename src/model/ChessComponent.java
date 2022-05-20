@@ -101,7 +101,7 @@ public abstract class ChessComponent extends JComponent {
 
     @Override
     public String getName() {
-        String n=String.valueOf(name);
+        String n = String.valueOf(name);
         return n;
     }
 

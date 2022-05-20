@@ -1,11 +1,14 @@
 package view;
 
 import controller.GameController;
+import model.ChessColor;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -61,9 +64,8 @@ public class ChessGameFrame extends JFrame {
     private void addRestartButton() {
         JButton button = new JButton("Restart");
         button.addActionListener((e) -> {
-            this.chessboard = new Chessboard(CHESSBOARD_SIZE, CHESSBOARD_SIZE);
-            gameController = new GameController(chessboard);
-            chessboard.setLocation(HEIGHT / 10, HEIGHT / 10);
+            chessboard.initChessGame();
+            chessboard.repaint();
         });
         button.setLocation(HEIGHT, HEIGHT / 10 + 240);
         button.setSize(200, 60);
@@ -75,7 +77,7 @@ public class ChessGameFrame extends JFrame {
         JButton button = new JButton("Save");
         button.addActionListener((e) -> {
             gameController.saveGame();
-            JOptionPane.showMessageDialog(this,"Current state successfully saved.");
+            JOptionPane.showMessageDialog(this, "Current state successfully saved.");
         });
         button.setLocation(HEIGHT, HEIGHT / 10 + 360);
         button.setSize(200, 60);
@@ -91,7 +93,10 @@ public class ChessGameFrame extends JFrame {
         add(button);
         button.addActionListener(e -> {
             System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this,"Input Path here");
+            String path = JOptionPane.showInputDialog(this, "Input path here");
+            if (!path.endsWith(".txt") || Files.notExists(Paths.get(path)))
+                JOptionPane.showMessageDialog(this, "Invalid path, please try again.");
+            //若棋盘属性不对则怎么怎么样
             gameController.loadGameFromFile(path);
         });
     }

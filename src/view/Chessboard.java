@@ -26,7 +26,7 @@ public class Chessboard extends JComponent {
     private static final int CHESSBOARD_SIZE = 8;
 
     private final ChessComponent[][] chessComponents = new ChessComponent[CHESSBOARD_SIZE][CHESSBOARD_SIZE];
-    private ChessColor currentColor = ChessColor.WHITE;
+    private ChessColor currentColor;
     //all chessComponents in this chessboard are shared only one model controller
     private final ClickController clickController = new ClickController(this);
     private final int CHESS_SIZE;
@@ -37,6 +37,10 @@ public class Chessboard extends JComponent {
         setSize(width, height);
         CHESS_SIZE = width / 8;
         System.out.printf("chessboard size = %d, chess size = %d\n", width, CHESS_SIZE);
+        initChessGame();
+    }
+
+    public void initChessGame() {
         initiateEmptyChessboard();
 
         // FIXME: Initialize chessboard for testing only.
@@ -48,10 +52,10 @@ public class Chessboard extends JComponent {
         initBishopOnBoard(0, CHESSBOARD_SIZE - 3, ChessColor.BLACK);
         initBishopOnBoard(CHESSBOARD_SIZE - 1, 2, ChessColor.WHITE);
         initBishopOnBoard(CHESSBOARD_SIZE - 1, CHESSBOARD_SIZE - 3, ChessColor.WHITE);
-        initQueenOnBoard(0, 4, ChessColor.BLACK);
-        initQueenOnBoard(CHESSBOARD_SIZE - 1, 4, ChessColor.WHITE);
-        initKingOnBoard(0, 3, ChessColor.BLACK);
-        initKingOnBoard(CHESSBOARD_SIZE - 1, 3, ChessColor.WHITE);
+        initQueenOnBoard(0, 3, ChessColor.BLACK);
+        initQueenOnBoard(CHESSBOARD_SIZE - 1, 3, ChessColor.WHITE);
+        initKingOnBoard(0, 4, ChessColor.BLACK);
+        initKingOnBoard(CHESSBOARD_SIZE - 1, 4, ChessColor.WHITE);
         initKnightOnBoard(0, 1, ChessColor.BLACK);
         initKnightOnBoard(0, CHESSBOARD_SIZE - 2, ChessColor.BLACK);
         initKnightOnBoard(CHESSBOARD_SIZE - 1, 1, ChessColor.WHITE);
@@ -60,6 +64,7 @@ public class Chessboard extends JComponent {
             initPawnOnBoard(1, i, ChessColor.BLACK);
             initPawnOnBoard(CHESSBOARD_SIZE - 2, i, ChessColor.WHITE);
         }
+        currentColor=ChessColor.WHITE;
     }
 
     public ChessComponent[][] getChessComponents() {
@@ -162,12 +167,16 @@ public class Chessboard extends JComponent {
             }
             save.add(sb.toString());
         }
-        if (currentColor==ChessColor.BLACK) save.add("B");
+        if (currentColor == ChessColor.BLACK) save.add("B");
         else save.add("w");
         return save;
     }
 
     public void loadGame(List<String> chessData) {
-        chessData.forEach(System.out::println);
+        for (int i = 0; i < chessData.size() - 1; i++) {
+            for (int j = 0; j < chessData.get(i).length(); j++) {
+
+            }
+        }
     }
 }
