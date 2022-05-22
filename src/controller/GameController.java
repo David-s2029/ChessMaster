@@ -18,7 +18,7 @@ public class GameController {
 
     public List<String> loadGameFromFile(String path) {
         try {
-            Path path1=Paths.get(path);
+            Path path1 = Paths.get(path);
             List<String> chessData = Files.readAllLines(path1);
             chessboard.loadGame(chessData);
             return chessData;
@@ -28,15 +28,15 @@ public class GameController {
         return null;
     }
 
-    public void saveGame(){
-        int cnt=0;
-        while (true){
+    public void saveGame() {
+        int cnt = 1;
+        while (true) {
             try {
                 String path = String.format("save/save%d.txt", cnt);
                 if (Files.exists(Paths.get(path))) {
                     cnt++;
                 } else {
-                    FileWriter writer =new FileWriter(String.format("save/save%d.txt", cnt));
+                    FileWriter writer = new FileWriter(path);
                     for (int i = 0; i < chessboard.saveGame().size(); i++) {
                         writer.write(chessboard.saveGame().get(i));
                         writer.write("\n");
@@ -44,7 +44,7 @@ public class GameController {
                     writer.close();
                     break;
                 }
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

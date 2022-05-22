@@ -30,6 +30,7 @@ public class Chessboard extends JComponent {
     //all chessComponents in this chessboard are shared only one model controller
     private final ClickController clickController = new ClickController(this);
     private final int CHESS_SIZE;
+    private JLabel playerLabel;
 
 
     public Chessboard(int width, int height) {
@@ -65,6 +66,10 @@ public class Chessboard extends JComponent {
             initPawnOnBoard(CHESSBOARD_SIZE - 2, i, ChessColor.WHITE);
         }
         currentColor=ChessColor.WHITE;
+    }
+
+    public void playerLabel(JLabel label){
+        playerLabel=label;
     }
 
     public ChessComponent[][] getChessComponents() {
@@ -110,6 +115,8 @@ public class Chessboard extends JComponent {
 
     public void swapColor() {
         currentColor = currentColor == ChessColor.BLACK ? ChessColor.WHITE : ChessColor.BLACK;
+        if (currentColor==ChessColor.BLACK) playerLabel.setText("Black");
+        if (currentColor==ChessColor.WHITE) playerLabel.setText("White");
     }
 
     private void initRookOnBoard(int row, int col, ChessColor color) {
@@ -203,7 +210,13 @@ public class Chessboard extends JComponent {
                     initPawnOnBoard(i,j,ChessColor.WHITE);
             }
         }
-        if (chessData.get(chessData.size()-1).equals("B")) currentColor=ChessColor.BLACK;
-        if (chessData.get(chessData.size()-1).equals("w")) currentColor=ChessColor.WHITE;
+        if (chessData.get(chessData.size()-1).equals("B")) {
+            currentColor=ChessColor.BLACK;
+            playerLabel.setText("Black");
+        }
+        if (chessData.get(chessData.size()-1).equals("w")) {
+            currentColor=ChessColor.WHITE;
+            playerLabel.setText("White");
+        }
     }
 }

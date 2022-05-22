@@ -1,14 +1,13 @@
 package view;
 
 import controller.GameController;
-import model.ChessColor;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
@@ -20,6 +19,7 @@ public class ChessGameFrame extends JFrame {
     public final int CHESSBOARD_SIZE;
     private GameController gameController;
     Chessboard chessboard;
+    JLabel playerLabel =new JLabel("White");
 
     public ChessGameFrame(int width, int height) {
         setTitle("ChessMaster"); //设置标题
@@ -31,10 +31,11 @@ public class ChessGameFrame extends JFrame {
         setLocationRelativeTo(null); // Center the window.
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
         setLayout(null);
-
         addChessboard();
         addRestartButton();
         addLabel();
+        addTurns();
+        addPlayerLabel();
         addSaveButton();
         addLoadButton();
     }
@@ -47,7 +48,12 @@ public class ChessGameFrame extends JFrame {
         this.chessboard = new Chessboard(CHESSBOARD_SIZE, CHESSBOARD_SIZE);
         gameController = new GameController(chessboard);
         chessboard.setLocation(HEIGHT / 10, HEIGHT / 10);
+        chessboard.playerLabel(playerLabel);
         add(chessboard);
+    }
+
+    private void addBackground(){
+
     }
 
     /**
@@ -55,10 +61,26 @@ public class ChessGameFrame extends JFrame {
      */
     private void addLabel() {
         JLabel statusLabel = new JLabel("ChessMaster 1.0");
-        statusLabel.setLocation(HEIGHT, HEIGHT / 10);
+        statusLabel.setLocation(WIDTH - 250, HEIGHT / 10);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(statusLabel);
+    }
+
+    private void addTurns() {
+        JLabel statusLabel = new JLabel("Current player:");
+        statusLabel.setLocation(WIDTH - 250, HEIGHT / 10+90);
+        statusLabel.setSize(200, 60);
+        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 17));
+        add(statusLabel);
+    }
+
+    private void addPlayerLabel(){
+        playerLabel.setLocation(WIDTH - 250, HEIGHT / 10+110);
+        playerLabel.setSize(200, 60);
+        playerLabel.setFont(new Font("Rockwell", Font.BOLD, 17));
+        playerLabel.setForeground(Color.BLUE);
+        add(playerLabel);
     }
 
     private void addRestartButton() {
@@ -66,8 +88,9 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener((e) -> {
             chessboard.initChessGame();
             chessboard.repaint();
+            playerLabel.setText("White");
         });
-        button.setLocation(HEIGHT, HEIGHT / 10 + 240);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 240);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -79,7 +102,7 @@ public class ChessGameFrame extends JFrame {
             gameController.saveGame();
             JOptionPane.showMessageDialog(this, "Current state successfully saved.");
         });
-        button.setLocation(HEIGHT, HEIGHT / 10 + 360);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 360);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -87,18 +110,61 @@ public class ChessGameFrame extends JFrame {
 
     private void addLoadButton() {
         JButton button = new JButton("Load");
-        button.setLocation(HEIGHT, HEIGHT / 10 + 480);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 480);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
         button.addActionListener(e -> {
+            boolean doable =false;
             System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this, "Input path here");
+            String path = JOptionPane.showInputDialog(this, "Input path here (txt files only)");
             if (!path.endsWith(".txt") || Files.notExists(Paths.get(path)))
-                JOptionPane.showMessageDialog(this, "Invalid path, please try again.");
-            //若棋盘属性不对则怎么怎么样
-            gameController.loadGameFromFile(path);
-            chessboard.repaint();
+                JOptionPane.showMessageDialog(this, "Invalid path, please try again.(Error: 104)");
+            else try {
+                List<String> chessData = Files.readAllLines(Paths.get(path));
+                if (chessData.size()==9){
+                    if (chessData.get(8).equals("w")||chessData.get(8).equals("B")){
+                        int error=0;
+                        for (int i = 0; i < 8; i++) {
+                            if (chessData.get(i).length()!=8) error++;
+                            for (int j = 0; j < chessData.get(i).length(); j++) {
+                                switch (chessData.get(i).charAt(j)){
+                                    case 'K':
+                                    case 'Q':
+                                    case 'k':
+                                    case 'q':
+                                    case 'P':
+                                    case 'p':
+                                    case 'N':
+                                    case 'n':
+                                    case 'R':
+                                    case 'r':
+                                    case 'B':
+                                    case 'b':
+                                    case '_':
+                                        continue;
+                                    default:
+                                        error++;
+                                }
+                            }
+                        }
+                        if (error>0) JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 102)");
+                        else if (error==0) doable=true;
+                    }
+                    else JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 103)");
+                }
+                else {
+                    if (chessData.get(chessData.size()-1).equals("w")||chessData.get(chessData.size()-1).equals("B"))
+                    JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 101)");
+                    else JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 103)");
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if (doable) {
+                gameController.loadGameFromFile(path);
+                chessboard.repaint();
+            }
         });
     }
 
