@@ -108,7 +108,7 @@ public class RookChessComponent extends ChessComponent {
         ArrayList<ChessComponent> move=new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (canMoveTo(chessComponents,new ChessboardPoint(i,j)))
+                if (canMoveTo(chessComponents,new ChessboardPoint(i,j))&&chessComponents[i][j].chessColor!=this.chessColor)
                     move.add(chessComponents[i][j]);
             }
         }

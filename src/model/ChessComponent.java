@@ -41,6 +41,7 @@ public abstract class ChessComponent extends JComponent {
     private boolean selected;
     protected char name;
     protected ChessComponent[][] chessComponents;
+    protected boolean canMove;
 
     protected ChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size,ChessComponent[][] chessComponents) {
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
@@ -51,6 +52,7 @@ public abstract class ChessComponent extends JComponent {
         this.selected = false;
         this.clickController = clickController;
         this.chessComponents=chessComponents;
+        this.canMove=false;
     }
 
     public ChessboardPoint getChessboardPoint() {
@@ -69,8 +71,15 @@ public abstract class ChessComponent extends JComponent {
         return selected;
     }
 
+    public void setCanMove(boolean selected) {
+        canMove=selected;
+    }
+
     public void setSelected(boolean selected) {
         this.selected = selected;
+        for (int i = 0; i < this.canMovePoints().size(); i++) {
+            this.canMovePoints().get(i).setCanMove(selected);
+        }
     }
 
     /**
@@ -134,5 +143,9 @@ public abstract class ChessComponent extends JComponent {
         Color squareColor = BACKGROUND_COLORS[(chessboardPoint.getX() + chessboardPoint.getY()) % 2];
         g.setColor(squareColor);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        if (canMove){
+            g.setColor(Color.PINK);
+            g.fillRect(0, 0, getWidth(), getHeight());
+        }
     }
 }

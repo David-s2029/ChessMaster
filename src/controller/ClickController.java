@@ -18,6 +18,9 @@ public class ClickController {
                 chessComponent.setSelected(true);
                 first = chessComponent;
                 first.repaint();
+                for (int i = 0; i < first.canMovePoints().size(); i++) {
+                    first.canMovePoints().get(i).repaint();
+                }
             }
         } else {
             if (first == chessComponent) { // 再次点击取消选取
@@ -25,12 +28,18 @@ public class ClickController {
                 ChessComponent recordFirst = first;
                 first = null;
                 recordFirst.repaint();
+                for (int i = 0; i < recordFirst.canMovePoints().size(); i++) {
+                    recordFirst.canMovePoints().get(i).repaint();
+                }
             } else if (handleSecond(chessComponent)) {
                 //repaint in swap chess method.
                 chessboard.swapChessComponents(first, chessComponent);
                 chessboard.swapColor();
 
                 first.setSelected(false);
+                for (int i = 0; i < first.canMovePoints().size(); i++) {
+                    first.canMovePoints().get(i).repaint();
+                }
                 first = null;
             }
         }

@@ -78,7 +78,7 @@ public class KnightChessComponent extends ChessComponent {
         ArrayList<ChessComponent> move=new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (canMoveTo(chessComponents,new ChessboardPoint(i,j)))
+                if (canMoveTo(chessComponents,new ChessboardPoint(i,j))&&chessComponents[i][j].chessColor!=this.chessColor)
                     move.add(chessComponents[i][j]);
             }
         }
@@ -90,6 +90,10 @@ public class KnightChessComponent extends ChessComponent {
         super.paintComponent(g);
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.RED);
+            g.fillRect(0, 0, getWidth(), getHeight());
+        }
+        if (super.canMove){
+            g.setColor(Color.PINK);
             g.fillRect(0, 0, getWidth(), getHeight());
         }
         g.drawImage(knightImage, 0, 0, getWidth() , getHeight(), this);

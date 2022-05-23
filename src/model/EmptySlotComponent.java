@@ -32,4 +32,5 @@ public class EmptySlotComponent extends ChessComponent {
         //No resource!
     }
 
+
 }
