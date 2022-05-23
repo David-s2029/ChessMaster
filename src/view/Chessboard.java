@@ -200,7 +200,6 @@ public class Chessboard extends JComponent {
         }
         if (currentColor == ChessColor.BLACK) save.add("B");
         else if (currentColor==ChessColor.WHITE) save.add("w");
-        else save.add("e");
         return save;
     }
 
@@ -242,10 +241,6 @@ public class Chessboard extends JComponent {
         else if (chessData.get(chessData.size()-1).equals("w")) {
             currentColor=ChessColor.WHITE;
             playerLabel.setText("White");
-        }
-        else {
-            currentColor=ChessColor.NONE;
-            playerLabel.setText("ENDED");
         }
     }
 

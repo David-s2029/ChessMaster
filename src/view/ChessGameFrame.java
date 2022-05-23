@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameController;
+import model.ChessColor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class ChessGameFrame extends JFrame {
     public final int CHESSBOARD_SIZE;
     private GameController gameController;
     Chessboard chessboard;
-    JLabel playerLabel =new JLabel("White");
+    JLabel playerLabel = new JLabel("White");
     JLabel bk;
 
     public ChessGameFrame(int width, int height) {
@@ -55,10 +56,10 @@ public class ChessGameFrame extends JFrame {
         add(chessboard);
     }
 
-    private void addBackground(){
-        ImageIcon image=new ImageIcon("images/modern1.jpeg");
-        bk=new JLabel(image);
-        bk.setBounds(0,0,WIDTH,HEIGHT);
+    private void addBackground() {
+        ImageIcon image = new ImageIcon("images/modern1.jpeg");
+        bk = new JLabel(image);
+        bk.setBounds(0, 0, WIDTH, HEIGHT);
         add(bk);
     }
 
@@ -76,15 +77,15 @@ public class ChessGameFrame extends JFrame {
 
     private void addTurns() {
         JLabel statusLabel = new JLabel("Current player:");
-        statusLabel.setLocation(WIDTH - 250, HEIGHT / 10+50);
+        statusLabel.setLocation(WIDTH - 250, HEIGHT / 10 + 50);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 17));
         statusLabel.setForeground(Color.WHITE);
         add(statusLabel);
     }
 
-    private void addPlayerLabel(){
-        playerLabel.setLocation(WIDTH - 250, HEIGHT / 10+70);
+    private void addPlayerLabel() {
+        playerLabel.setLocation(WIDTH - 250, HEIGHT / 10 + 70);
         playerLabel.setSize(200, 60);
         playerLabel.setFont(new Font("Rockwell", Font.BOLD, 17));
         playerLabel.setForeground(Color.LIGHT_GRAY);
@@ -107,8 +108,12 @@ public class ChessGameFrame extends JFrame {
     private void addSaveButton() {
         JButton button = new JButton("Save");
         button.addActionListener((e) -> {
-            gameController.saveGame();
-            JOptionPane.showMessageDialog(this, "Current state successfully saved.");
+            if (chessboard.getCurrentColor() == ChessColor.NONE) {
+                JOptionPane.showMessageDialog(this, "Current game already ended");
+            } else {
+                gameController.saveGame();
+                JOptionPane.showMessageDialog(this, "Current state successfully saved.");
+            }
         });
         button.setLocation(WIDTH - 265, HEIGHT / 10 + 300);
         button.setSize(200, 60);
@@ -123,20 +128,20 @@ public class ChessGameFrame extends JFrame {
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
         button.addActionListener(e -> {
-            boolean doable =false;
+            boolean doable = false;
             System.out.println("Click load");
             String path = JOptionPane.showInputDialog(this, "Input path here (txt files only)");
             if (!path.endsWith(".txt") || Files.notExists(Paths.get(path)))
                 JOptionPane.showMessageDialog(this, "Invalid path, please try again.(Error: 104)");
             else try {
                 List<String> chessData = Files.readAllLines(Paths.get(path));
-                if (chessData.size()==9){
-                    if (chessData.get(8).equals("w")||chessData.get(8).equals("B")){
-                        int error=0;
+                if (chessData.size() == 9) {
+                    if (chessData.get(8).equals("w") || chessData.get(8).equals("B")) {
+                        int error = 0;
                         for (int i = 0; i < 8; i++) {
-                            if (chessData.get(i).length()!=8) error++;
+                            if (chessData.get(i).length() != 8) error++;
                             for (int j = 0; j < chessData.get(i).length(); j++) {
-                                switch (chessData.get(i).charAt(j)){
+                                switch (chessData.get(i).charAt(j)) {
                                     case 'K':
                                     case 'Q':
                                     case 'k':
@@ -157,14 +162,13 @@ public class ChessGameFrame extends JFrame {
                                 }
                             }
                         }
-                        if (error>0) JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 102)");
-                        else if (error==0) doable=true;
-                    }
-                    else JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 103)");
-                }
-                else {
-                    if (chessData.get(chessData.size()-1).equals("w")||chessData.get(chessData.size()-1).equals("B")||chessData.get(chessData.size()-1).equals("e"))
-                    JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 101)");
+                        if (error > 0)
+                            JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 102)");
+                        else if (error == 0) doable = true;
+                    } else JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 103)");
+                } else {
+                    if (chessData.get(chessData.size() - 1).equals("w") || chessData.get(chessData.size() - 1).equals("B"))
+                        JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 101)");
                     else JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 103)");
                 }
             } catch (IOException ex) {
@@ -177,10 +181,10 @@ public class ChessGameFrame extends JFrame {
         });
     }
 
-    private void addThemeButton(){
+    private void addThemeButton() {
         JButton button = new JButton("Theme");
         button.addActionListener((e) -> {
-            ThemeChanger themeChanger=new ThemeChanger(400,200);
+            ThemeChanger themeChanger = new ThemeChanger(400, 200);
             themeChanger.setFrame(this);
             themeChanger.setVisible(true);
         });
@@ -190,12 +194,12 @@ public class ChessGameFrame extends JFrame {
         add(button);
     }
 
-    public void setTheme(String path){
+    public void setTheme(String path) {
         this.bk.setVisible(false);
-        ImageIcon image=new ImageIcon(path);
-        JLabel bk=new JLabel(image);
-        bk.setBounds(0,0,WIDTH,HEIGHT);
+        ImageIcon image = new ImageIcon(path);
+        JLabel bk = new JLabel(image);
+        bk.setBounds(0, 0, WIDTH, HEIGHT);
         this.add(bk);
-        this.bk=bk;
+        this.bk = bk;
     }
 }
