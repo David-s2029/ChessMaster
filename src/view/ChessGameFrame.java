@@ -138,8 +138,13 @@ public class ChessGameFrame extends JFrame {
                 if (chessData.size() == 9) {
                     if (chessData.get(8).equals("w") || chessData.get(8).equals("B")) {
                         int error = 0;
+                        boolean chessboard = true;
                         for (int i = 0; i < 8; i++) {
-                            if (chessData.get(i).length() != 8) error++;
+                            if (chessData.get(i).length() != 8) {
+                                chessboard = false;
+                                JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 101)");
+                                break;
+                            }
                             for (int j = 0; j < chessData.get(i).length(); j++) {
                                 switch (chessData.get(i).charAt(j)) {
                                     case 'K':
@@ -162,9 +167,9 @@ public class ChessGameFrame extends JFrame {
                                 }
                             }
                         }
-                        if (error > 0)
+                        if (error > 0 && chessboard)
                             JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 102)");
-                        else if (error == 0) doable = true;
+                        else if (error == 0 && chessboard) doable = true;
                     } else JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 103)");
                 } else {
                     if (chessData.get(chessData.size() - 1).equals("w") || chessData.get(chessData.size() - 1).equals("B"))
