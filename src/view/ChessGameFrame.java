@@ -20,6 +20,7 @@ public class ChessGameFrame extends JFrame {
     private GameController gameController;
     Chessboard chessboard;
     JLabel playerLabel =new JLabel("White");
+    JLabel bk;
 
     public ChessGameFrame(int width, int height) {
         setTitle("ChessMaster"); //设置标题
@@ -38,6 +39,8 @@ public class ChessGameFrame extends JFrame {
         addPlayerLabel();
         addSaveButton();
         addLoadButton();
+        addThemeButton();
+        addBackground();
     }
 
 
@@ -53,7 +56,10 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addBackground(){
-
+        ImageIcon image=new ImageIcon("images/modern1.jpeg");
+        bk=new JLabel(image);
+        bk.setBounds(0,0,image.getIconWidth(),image.getIconHeight());
+        add(bk);
     }
 
     /**
@@ -64,22 +70,24 @@ public class ChessGameFrame extends JFrame {
         statusLabel.setLocation(WIDTH - 250, HEIGHT / 10);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 20));
+        statusLabel.setForeground(Color.WHITE);
         add(statusLabel);
     }
 
     private void addTurns() {
         JLabel statusLabel = new JLabel("Current player:");
-        statusLabel.setLocation(WIDTH - 250, HEIGHT / 10+90);
+        statusLabel.setLocation(WIDTH - 250, HEIGHT / 10+50);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 17));
+        statusLabel.setForeground(Color.WHITE);
         add(statusLabel);
     }
 
     private void addPlayerLabel(){
-        playerLabel.setLocation(WIDTH - 250, HEIGHT / 10+110);
+        playerLabel.setLocation(WIDTH - 250, HEIGHT / 10+70);
         playerLabel.setSize(200, 60);
         playerLabel.setFont(new Font("Rockwell", Font.BOLD, 17));
-        playerLabel.setForeground(Color.BLUE);
+        playerLabel.setForeground(Color.LIGHT_GRAY);
         add(playerLabel);
     }
 
@@ -90,7 +98,7 @@ public class ChessGameFrame extends JFrame {
             chessboard.repaint();
             playerLabel.setText("White");
         });
-        button.setLocation(WIDTH - 265, HEIGHT / 10 + 240);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 200);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -102,7 +110,7 @@ public class ChessGameFrame extends JFrame {
             gameController.saveGame();
             JOptionPane.showMessageDialog(this, "Current state successfully saved.");
         });
-        button.setLocation(WIDTH - 265, HEIGHT / 10 + 360);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 300);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -110,7 +118,7 @@ public class ChessGameFrame extends JFrame {
 
     private void addLoadButton() {
         JButton button = new JButton("Load");
-        button.setLocation(WIDTH - 265, HEIGHT / 10 + 480);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 400);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -145,6 +153,7 @@ public class ChessGameFrame extends JFrame {
                                         continue;
                                     default:
                                         error++;
+                                        break;
                                 }
                             }
                         }
@@ -168,4 +177,25 @@ public class ChessGameFrame extends JFrame {
         });
     }
 
+    private void addThemeButton(){
+        JButton button = new JButton("Theme");
+        button.addActionListener((e) -> {
+            ThemeChanger themeChanger=new ThemeChanger(400,200);
+            themeChanger.setFrame(this);
+            themeChanger.setVisible(true);
+        });
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 500);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(button);
+    }
+
+    public void setTheme(String path){
+        this.bk.setVisible(false);
+        ImageIcon image=new ImageIcon(path);
+        JLabel bk=new JLabel(image);
+        bk.setBounds(0,0,image.getIconWidth(),image.getIconHeight());
+        this.add(bk);
+        this.bk=bk;
+    }
 }

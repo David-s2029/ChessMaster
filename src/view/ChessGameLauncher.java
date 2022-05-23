@@ -36,6 +36,7 @@ public class ChessGameLauncher extends JFrame {
             ChessGameFrame mainFrame = new ChessGameFrame(1000, 760);
             mainFrame.setVisible(true);
             this.setVisible(false);
+            dispose();
         });
         button.setLocation(WIDTH / 2 - 110, HEIGHT / 10 + 200);
         button.setSize(200, 60);
