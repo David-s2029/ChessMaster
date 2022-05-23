@@ -20,6 +20,7 @@ public class ChessGameLauncher extends JFrame {
 
         addLabel();
         addStartButton();
+        addBackground();
     }
 
     private void addLabel() {
@@ -27,6 +28,7 @@ public class ChessGameLauncher extends JFrame {
         statusLabel.setLocation(WIDTH / 2 - 105, HEIGHT / 10);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 30));
+        statusLabel.setForeground(Color.WHITE);
         add(statusLabel);
     }
 
@@ -42,5 +44,12 @@ public class ChessGameLauncher extends JFrame {
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
+    }
+
+    private void addBackground(){
+        ImageIcon image=new ImageIcon("images/ChessMaster.jpeg");
+        JLabel bk=new JLabel(image);
+        bk.setBounds(0,0,image.getIconWidth(),image.getIconHeight());
+        add(bk);
     }
 }
