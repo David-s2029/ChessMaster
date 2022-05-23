@@ -58,7 +58,7 @@ public class ChessGameFrame extends JFrame {
     private void addBackground(){
         ImageIcon image=new ImageIcon("images/modern1.jpeg");
         bk=new JLabel(image);
-        bk.setBounds(0,0,image.getIconWidth(),image.getIconHeight());
+        bk.setBounds(0,0,WIDTH,HEIGHT);
         add(bk);
     }
 
@@ -194,7 +194,7 @@ public class ChessGameFrame extends JFrame {
         this.bk.setVisible(false);
         ImageIcon image=new ImageIcon(path);
         JLabel bk=new JLabel(image);
-        bk.setBounds(0,0,image.getIconWidth(),image.getIconHeight());
+        bk.setBounds(0,0,WIDTH,HEIGHT);
         this.add(bk);
         this.bk=bk;
     }

@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * 这个类是一个抽象类，主要表示8*8棋盘上每个格子的棋子情况，当前有两个子类继承它，分别是EmptySlotComponent(空棋子)和RookChessComponent(车)。
@@ -39,8 +40,9 @@ public abstract class ChessComponent extends JComponent {
     protected final ChessColor chessColor;
     private boolean selected;
     protected char name;
+    protected ChessComponent[][] chessComponents;
 
-    protected ChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size) {
+    protected ChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size,ChessComponent[][] chessComponents) {
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
         setLocation(location);
         setSize(size, size);
@@ -48,6 +50,7 @@ public abstract class ChessComponent extends JComponent {
         this.chessColor = chessColor;
         this.selected = false;
         this.clickController = clickController;
+        this.chessComponents=chessComponents;
     }
 
     public ChessboardPoint getChessboardPoint() {
@@ -97,6 +100,7 @@ public abstract class ChessComponent extends JComponent {
             System.out.printf("Click [%d,%d]\n", chessboardPoint.getX(), chessboardPoint.getY());
             clickController.onClick(this);
         }
+
     }
 
     @Override
@@ -113,6 +117,8 @@ public abstract class ChessComponent extends JComponent {
      * 这个方法主要是检查移动的合法性，如果合法就返回true，反之是false
      */
     public abstract boolean canMoveTo(ChessComponent[][] chessboard, ChessboardPoint destination);
+
+    public abstract ArrayList<ChessComponent> canMovePoints();
 
     /**
      * 这个方法主要用于加载一些特定资源，如棋子图片等等。

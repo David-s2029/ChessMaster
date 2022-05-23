@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * 这个类表示国际象棋里面的马
@@ -41,8 +42,8 @@ public class KnightChessComponent extends ChessComponent {
         }
     }
 
-    public KnightChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor color, ClickController listener, int size) {
-        super(chessboardPoint, location, color, listener, size);
+    public KnightChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor color, ClickController listener, int size,ChessComponent[][] chessComponents) {
+        super(chessboardPoint, location, color, listener, size,chessComponents);
         if (color == ChessColor.WHITE) {
             super.name='n';
         } else if (color == ChessColor.BLACK) {
@@ -71,6 +72,17 @@ public class KnightChessComponent extends ChessComponent {
         if (destination.getX()-source.getX()==-1&&destination.getY()-source.getY()==-2)
             return true;
         return false;
+    }
+
+    public ArrayList<ChessComponent> canMovePoints(){
+        ArrayList<ChessComponent> move=new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (canMoveTo(chessComponents,new ChessboardPoint(i,j)))
+                    move.add(chessComponents[i][j]);
+            }
+        }
+        return move;
     }
 
     @Override
