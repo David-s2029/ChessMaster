@@ -103,6 +103,16 @@ public class Chessboard extends JComponent {
         chessComponents[row2][col2] = chess2;
 //        chess1.repaint();
 //        chess2.repaint();
+        if (winnerCheck()==ChessColor.WHITE){
+            JOptionPane.showMessageDialog(this,"Player WHITE wins! Congrats!");
+            currentColor=ChessColor.NONE;
+            playerLabel.setText("ENDED");
+        }
+        else if (winnerCheck()==ChessColor.BLACK){
+            JOptionPane.showMessageDialog(this,"Player BLACK wins! Congrats!");
+            currentColor=ChessColor.NONE;
+            playerLabel.setText("ENDED");
+        }
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 chessComponents[i][j].setSelected(false);
@@ -113,16 +123,6 @@ public class Chessboard extends JComponent {
             for (int j = 0; j < 8; j++) {
                 chessComponents[i][j].repaint();
             }
-        }
-        if (winnerCheck()==ChessColor.WHITE){
-            JOptionPane.showMessageDialog(this,"Player WHITE wins! Congrats!");
-            currentColor=ChessColor.NONE;
-            playerLabel.setText("ENDED");
-        }
-        else if (winnerCheck()==ChessColor.BLACK){
-            JOptionPane.showMessageDialog(this,"Player BLACK wins! Congrats!");
-            currentColor=ChessColor.NONE;
-            playerLabel.setText("ENDED");
         }
     }
 
