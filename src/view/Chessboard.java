@@ -105,6 +105,7 @@ public class Chessboard extends JComponent {
 //        chess2.repaint();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+                chessComponents[i][j].setSelected(false);
                 chessComponents[i][j].setCanMove(false);
             }
         }
@@ -112,6 +113,14 @@ public class Chessboard extends JComponent {
             for (int j = 0; j < 8; j++) {
                 chessComponents[i][j].repaint();
             }
+        }
+        if (winnerCheck()==ChessColor.WHITE){
+            JOptionPane.showMessageDialog(this,"Player WHITE wins! Congrats!");
+            currentColor=ChessColor.NONE;
+        }
+        if (winnerCheck()==ChessColor.BLACK){
+            JOptionPane.showMessageDialog(this,"Player BLACK wins! Congrats!");
+            currentColor=ChessColor.NONE;
         }
     }
 
@@ -124,7 +133,10 @@ public class Chessboard extends JComponent {
     }
 
     public void swapColor() {
-        currentColor = currentColor == ChessColor.BLACK ? ChessColor.WHITE : ChessColor.BLACK;
+        if (currentColor==ChessColor.BLACK)
+            currentColor=ChessColor.WHITE;
+        else if (currentColor==ChessColor.WHITE)
+            currentColor=ChessColor.BLACK;
         if (currentColor==ChessColor.BLACK) playerLabel.setText("Black");
         if (currentColor==ChessColor.WHITE) playerLabel.setText("White");
     }
@@ -228,5 +240,23 @@ public class Chessboard extends JComponent {
             currentColor=ChessColor.WHITE;
             playerLabel.setText("White");
         }
+    }
+
+    public ChessColor winnerCheck(){
+        boolean white=false;
+        boolean black=false;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (chessComponents[i][j] instanceof KingChessComponent){
+                    if (chessComponents[i][j].getChessColor()==ChessColor.WHITE)
+                        white=true;
+                    if (chessComponents[i][j].getChessColor()==ChessColor.BLACK)
+                        black=true;
+                }
+            }
+        }
+        if (white&&black) return ChessColor.NONE;
+        else if (white) return ChessColor.WHITE;
+        else return ChessColor.BLACK;
     }
 }
