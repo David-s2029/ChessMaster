@@ -117,10 +117,12 @@ public class Chessboard extends JComponent {
         if (winnerCheck()==ChessColor.WHITE){
             JOptionPane.showMessageDialog(this,"Player WHITE wins! Congrats!");
             currentColor=ChessColor.NONE;
+            playerLabel.setText("ENDED");
         }
-        if (winnerCheck()==ChessColor.BLACK){
+        else if (winnerCheck()==ChessColor.BLACK){
             JOptionPane.showMessageDialog(this,"Player BLACK wins! Congrats!");
             currentColor=ChessColor.NONE;
+            playerLabel.setText("ENDED");
         }
     }
 
@@ -197,7 +199,8 @@ public class Chessboard extends JComponent {
             save.add(sb.toString());
         }
         if (currentColor == ChessColor.BLACK) save.add("B");
-        else save.add("w");
+        else if (currentColor==ChessColor.WHITE) save.add("w");
+        else save.add("e");
         return save;
     }
 
@@ -236,9 +239,13 @@ public class Chessboard extends JComponent {
             currentColor=ChessColor.BLACK;
             playerLabel.setText("Black");
         }
-        if (chessData.get(chessData.size()-1).equals("w")) {
+        else if (chessData.get(chessData.size()-1).equals("w")) {
             currentColor=ChessColor.WHITE;
             playerLabel.setText("White");
+        }
+        else {
+            currentColor=ChessColor.NONE;
+            playerLabel.setText("ENDED");
         }
     }
 
