@@ -163,7 +163,7 @@ public class ChessGameFrame extends JFrame {
                     else JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 103)");
                 }
                 else {
-                    if (chessData.get(chessData.size()-1).equals("w")||chessData.get(chessData.size()-1).equals("B"))
+                    if (chessData.get(chessData.size()-1).equals("w")||chessData.get(chessData.size()-1).equals("B")||chessData.get(chessData.size()-1).equals("e"))
                     JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 101)");
                     else JOptionPane.showMessageDialog(this, "Invalid file, please try again.(Error: 103)");
                 }
