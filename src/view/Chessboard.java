@@ -220,6 +220,9 @@ public class Chessboard extends JComponent {
                 else if (getDifficulty()==Difficulty.DIFFICULTY_Hard){
                     AiMoveHard();
                 }
+                else if (getDifficulty()==Difficulty.DIFFICULTY_Hell){
+                    AiMoveHard();
+                }
             }
         }
         if (currentColor==ChessColor.BLACK) playerLabel.setText("Black");
