@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * 这个类是一个抽象类，主要表示8*8棋盘上每个格子的棋子情况，当前有两个子类继承它，分别是EmptySlotComponent(空棋子)和RookChessComponent(车)。
  */
-public abstract class ChessComponent extends JComponent {
+public abstract class ChessComponent extends JComponent implements Comparable<ChessComponent>{
 
     /**
      * CHESSGRID_SIZE: 主要用于确定每个棋子在页面中显示的大小。
@@ -152,5 +152,12 @@ public abstract class ChessComponent extends JComponent {
             g.setColor(Color.PINK);
             g.fillRect(0, 0, getWidth(), getHeight());
         }
+    }
+
+    @Override
+    public int compareTo(ChessComponent o){
+        if (this.getPoint()>o.getPoint()) return -1;
+        if (this.getPoint()<o.getPoint()) return 1;
+        else return 0;
     }
 }

@@ -166,6 +166,48 @@ public class Chessboard extends JComponent {
         swapColor();
     }
 
+    public void AiMoveHard(){
+        List<ChessComponent> movable=new ArrayList<>();
+        List<ChessComponent> movablePoints=new ArrayList<>();
+        ChessComponent move1;
+        ChessComponent move2;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (chessComponents[i][j].getChessColor()==ChessColor.BLACK){
+                    if (chessComponents[i][j].canMovePoints().size()!=0) {
+                        movablePoints.addAll(chessComponents[i][j].canMovePoints());
+                    }
+                }
+            }
+        }
+        movablePoints.sort(ChessComponent::compareTo);
+        int maxPoint=movablePoints.get(0).getPoint();
+        movablePoints.clear();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (chessComponents[i][j].getChessColor()==ChessColor.BLACK){
+                    if (chessComponents[i][j].canMovePoints().size()!=0) {
+                        for (int k = 0; k < chessComponents[i][j].canMovePoints().size(); k++) {
+                            if (chessComponents[i][j].canMovePoints().get(k).getPoint()==maxPoint){
+                                movable.add(chessComponents[i][j]);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        Random random=new Random();
+        move1=movable.get(random.nextInt(movable.size()));
+        for (int i = 0; i < move1.canMovePoints().size(); i++) {
+            if (move1.canMovePoints().get(i).getPoint()==maxPoint)
+                movablePoints.add(move1.canMovePoints().get(i));
+        }
+        move2=movablePoints.get(random.nextInt(movablePoints.size()));
+        swapChessComponents(move1,move2);
+        swapColor();
+    }
+
     public void swapColor() {
         if (currentColor==ChessColor.BLACK)
             currentColor=ChessColor.WHITE;
@@ -174,6 +216,9 @@ public class Chessboard extends JComponent {
             if (PvcMode){
                 if (getDifficulty()==Difficulty.DIFFICULTY_Normal) {
                     AiMoveNormal();
+                }
+                else if (getDifficulty()==Difficulty.DIFFICULTY_Hard){
+                    AiMoveHard();
                 }
             }
         }
