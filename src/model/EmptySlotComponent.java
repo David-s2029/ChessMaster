@@ -14,6 +14,7 @@ public class EmptySlotComponent extends ChessComponent {
 
     public EmptySlotComponent(ChessboardPoint chessboardPoint, Point location, ClickController listener, int size,ChessComponent[][] chessComponents) {
         super(chessboardPoint, location, ChessColor.NONE, listener, size,chessComponents);
+        super.point=0;
         super.name='_';
     }
 

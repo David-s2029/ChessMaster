@@ -16,7 +16,6 @@ public class KingChessComponent extends ChessComponent {
 
     private static Image KING_WHITE;
     private static Image KING_BLACK;
-
     private Image kingImage;
 
     public void loadResource() throws IOException {
@@ -44,6 +43,7 @@ public class KingChessComponent extends ChessComponent {
 
     public KingChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor color, ClickController listener, int size,ChessComponent[][] chessComponents) {
         super(chessboardPoint, location, color, listener, size,chessComponents);
+        super.point=10;
         if (color == ChessColor.WHITE) {
             super.name='k';
         } else if (color == ChessColor.BLACK) {

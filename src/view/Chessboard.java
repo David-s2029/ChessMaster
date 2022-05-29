@@ -120,13 +120,11 @@ public class Chessboard extends JComponent {
             JOptionPane.showMessageDialog(this,"Player WHITE wins! Congrats!");
             currentColor=ChessColor.NONE;
             playerLabel.setText("ENDED");
-            PvcMode=false;
         }
         else if (winnerCheck()==ChessColor.BLACK){
             JOptionPane.showMessageDialog(this,"Player BLACK wins! Congrats!");
             currentColor=ChessColor.NONE;
             playerLabel.setText("ENDED");
-            PvcMode=false;
         }
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
