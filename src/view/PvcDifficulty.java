@@ -38,7 +38,7 @@ public class PvcDifficulty extends JFrame {
     }
 
     private void addDiff1() {
-        JButton button = new JButton("Normal");
+        JButton button = new JButton("Rookie");
         button.addActionListener((e) -> {
             frame.setDifficulty(Difficulty.DIFFICULTY_Normal);
             frame.setPvc(true);
@@ -51,7 +51,7 @@ public class PvcDifficulty extends JFrame {
     }
 
     private void addDiff2() {
-        JButton button = new JButton("Hard");
+        JButton button = new JButton("Challenger");
         button.addActionListener((e) -> {
             frame.setDifficulty(Difficulty.DIFFICULTY_Hard);
             frame.setPvc(true);
@@ -59,7 +59,7 @@ public class PvcDifficulty extends JFrame {
         });
         button.setLocation(WIDTH / 2, HEIGHT / 10 + 50);
         button.setSize(100, 30);
-        button.setFont(new Font("Rockwell", Font.BOLD, 13));
+        button.setFont(new Font("Rockwell", Font.BOLD, 11));
         add(button);
     }
 
