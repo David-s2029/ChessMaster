@@ -42,6 +42,7 @@ public abstract class ChessComponent extends JComponent {
     protected char name;
     protected ChessComponent[][] chessComponents;
     protected boolean canMove;
+    protected int point;
 
     protected ChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor chessColor, ClickController clickController, int size,ChessComponent[][] chessComponents) {
         enableEvents(AWTEvent.MOUSE_EVENT_MASK);
@@ -53,6 +54,10 @@ public abstract class ChessComponent extends JComponent {
         this.clickController = clickController;
         this.chessComponents=chessComponents;
         this.canMove=false;
+    }
+
+    public int getPoint() {
+        return point;
     }
 
     public ChessboardPoint getChessboardPoint() {
