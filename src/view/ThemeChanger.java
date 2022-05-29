@@ -41,6 +41,7 @@ public class ThemeChanger extends JFrame {
         JButton button = new JButton("Classic1");
         button.addActionListener((e) -> {
             frame.setTheme("images/classic1.jpeg");
+            this.setVisible(false);
         });
         button.setLocation(WIDTH/2-120, HEIGHT / 10+50);
         button.setSize(100, 30);
@@ -52,6 +53,7 @@ public class ThemeChanger extends JFrame {
         JButton button = new JButton("Classic2");
         button.addActionListener((e) -> {
             frame.setTheme("images/classic2.jpeg");
+            this.setVisible(false);
         });
         button.setLocation(WIDTH/2-120, HEIGHT / 10+90);
         button.setSize(100, 30);
@@ -63,6 +65,7 @@ public class ThemeChanger extends JFrame {
         JButton button = new JButton("Classic3");
         button.addActionListener((e) -> {
             frame.setTheme("images/classic3.jpeg");
+            this.setVisible(false);
         });
         button.setLocation(WIDTH/2, HEIGHT / 10+50);
         button.setSize(100, 30);
@@ -74,6 +77,7 @@ public class ThemeChanger extends JFrame {
         JButton button = new JButton("Modern1");
         button.addActionListener((e) -> {
             frame.setTheme("images/modern1.jpeg");
+            this.setVisible(false);
         });
         button.setLocation(WIDTH/2, HEIGHT / 10+90);
         button.setSize(100, 30);

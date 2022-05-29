@@ -31,7 +31,13 @@ public class Chessboard extends JComponent {
     private final ClickController clickController = new ClickController(this);
     private final int CHESS_SIZE;
     private JLabel playerLabel;
+    private Difficulty difficulty;
+    private boolean PvcMode=false;
 
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+        PvcMode=true;
+    }
 
     public Chessboard(int width, int height) {
         setLayout(null); // Use absolute layout.
@@ -107,11 +113,13 @@ public class Chessboard extends JComponent {
             JOptionPane.showMessageDialog(this,"Player WHITE wins! Congrats!");
             currentColor=ChessColor.NONE;
             playerLabel.setText("ENDED");
+            PvcMode=false;
         }
         else if (winnerCheck()==ChessColor.BLACK){
             JOptionPane.showMessageDialog(this,"Player BLACK wins! Congrats!");
             currentColor=ChessColor.NONE;
             playerLabel.setText("ENDED");
+            PvcMode=false;
         }
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

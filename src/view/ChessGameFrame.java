@@ -2,6 +2,7 @@ package view;
 
 import controller.GameController;
 import model.ChessColor;
+import model.Difficulty;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,6 +42,7 @@ public class ChessGameFrame extends JFrame {
         addSaveButton();
         addLoadButton();
         addThemeButton();
+        addPvcButton();
         addBackground();
     }
 
@@ -99,7 +101,7 @@ public class ChessGameFrame extends JFrame {
             chessboard.repaint();
             playerLabel.setText("White");
         });
-        button.setLocation(WIDTH - 265, HEIGHT / 10 + 200);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 160);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -115,7 +117,7 @@ public class ChessGameFrame extends JFrame {
                 JOptionPane.showMessageDialog(this, "Current state successfully saved.");
             }
         });
-        button.setLocation(WIDTH - 265, HEIGHT / 10 + 300);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 240);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -123,7 +125,7 @@ public class ChessGameFrame extends JFrame {
 
     private void addLoadButton() {
         JButton button = new JButton("Load");
-        button.setLocation(WIDTH - 265, HEIGHT / 10 + 400);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 320);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -193,7 +195,7 @@ public class ChessGameFrame extends JFrame {
             themeChanger.setFrame(this);
             themeChanger.setVisible(true);
         });
-        button.setLocation(WIDTH - 265, HEIGHT / 10 + 500);
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 400);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
@@ -206,5 +208,22 @@ public class ChessGameFrame extends JFrame {
         bk.setBounds(0, 0, WIDTH, HEIGHT);
         this.add(bk);
         this.bk = bk;
+    }
+
+    private void addPvcButton() {
+        JButton button = new JButton("PvC Mode");
+        button.addActionListener((e) -> {
+            PvcDifficulty difficulty=new PvcDifficulty(400, 150);
+            difficulty.setFrame(this);
+            difficulty.setVisible(true);
+        });
+        button.setLocation(WIDTH - 265, HEIGHT / 10 + 480);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(button);
+    }
+
+    public void setDifficulty(Difficulty difficulty){
+        chessboard.setDifficulty(difficulty);
     }
 }
