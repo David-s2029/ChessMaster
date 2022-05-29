@@ -71,7 +71,7 @@ public class PvcDifficulty extends JFrame {
             frame.setPvc(true);
             this.setVisible(false);
         });
-        button.setLocation(WIDTH / 2-120, HEIGHT / 10 + 50);
+        button.setLocation(WIDTH / 2-120, HEIGHT / 10 + 90);
         button.setSize(100, 30);
         button.setFont(new Font("Rockwell", Font.BOLD, 13));
         add(button);
