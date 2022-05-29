@@ -213,7 +213,7 @@ public class ChessGameFrame extends JFrame {
     private void addPvcButton() {
         JButton button = new JButton("PvC Mode");
         button.addActionListener((e) -> {
-            PvcDifficulty difficulty=new PvcDifficulty(400, 150);
+            PvcDifficulty difficulty=new PvcDifficulty(400, 200);
             difficulty.setFrame(this);
             difficulty.setVisible(true);
         });
@@ -225,5 +225,9 @@ public class ChessGameFrame extends JFrame {
 
     public void setDifficulty(Difficulty difficulty){
         chessboard.setDifficulty(difficulty);
+    }
+
+    public void setPvc(boolean pvc){
+        chessboard.setPvcMode(pvc);
     }
 }

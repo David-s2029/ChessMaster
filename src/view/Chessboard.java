@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 这个类表示面板上的棋盘组件对象
@@ -32,11 +33,19 @@ public class Chessboard extends JComponent {
     private final int CHESS_SIZE;
     private JLabel playerLabel;
     private Difficulty difficulty;
+
+    public void setPvcMode(boolean pvcMode) {
+        PvcMode = pvcMode;
+    }
+
     private boolean PvcMode=false;
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
 
     public void setDifficulty(Difficulty difficulty) {
         this.difficulty = difficulty;
-        PvcMode=true;
     }
 
     public Chessboard(int width, int height) {
@@ -107,8 +116,6 @@ public class Chessboard extends JComponent {
         chessComponents[row1][col1] = chess1;
         int row2 = chess2.getChessboardPoint().getX(), col2 = chess2.getChessboardPoint().getY();
         chessComponents[row2][col2] = chess2;
-//        chess1.repaint();
-//        chess2.repaint();
         if (winnerCheck()==ChessColor.WHITE){
             JOptionPane.showMessageDialog(this,"Player WHITE wins! Congrats!");
             currentColor=ChessColor.NONE;
@@ -142,11 +149,36 @@ public class Chessboard extends JComponent {
         }
     }
 
+    public void AiMoveNormal(){
+        List<ChessComponent> movable=new ArrayList<>();
+        ChessComponent move1;
+        ChessComponent move2;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (chessComponents[i][j].getChessColor()==ChessColor.BLACK){
+                    if (chessComponents[i][j].canMovePoints().size()!=0)
+                        movable.add(chessComponents[i][j]);
+                }
+            }
+        }
+        Random random=new Random();
+        move1=movable.get(random.nextInt(movable.size()));
+        move2=move1.canMovePoints().get(random.nextInt(move1.canMovePoints().size()));
+        swapChessComponents(move1,move2);
+        swapColor();
+    }
+
     public void swapColor() {
         if (currentColor==ChessColor.BLACK)
             currentColor=ChessColor.WHITE;
-        else if (currentColor==ChessColor.WHITE)
-            currentColor=ChessColor.BLACK;
+        else if (currentColor==ChessColor.WHITE) {
+            currentColor = ChessColor.BLACK;
+            if (PvcMode){
+                if (getDifficulty()==Difficulty.DIFFICULTY_Normal) {
+                    AiMoveNormal();
+                }
+            }
+        }
         if (currentColor==ChessColor.BLACK) playerLabel.setText("Black");
         if (currentColor==ChessColor.WHITE) playerLabel.setText("White");
     }

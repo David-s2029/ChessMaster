@@ -26,7 +26,7 @@ public class PvcDifficulty extends JFrame {
         addLabel();
         addDiff1();
         addDiff2();
-
+        addOff();
     }
 
     private void addLabel() {
@@ -41,6 +41,7 @@ public class PvcDifficulty extends JFrame {
         JButton button = new JButton("Normal");
         button.addActionListener((e) -> {
             frame.setDifficulty(Difficulty.DIFFICULTY_Normal);
+            frame.setPvc(true);
             this.setVisible(false);
         });
         button.setLocation(WIDTH / 2 - 120, HEIGHT / 10 + 50);
@@ -53,9 +54,22 @@ public class PvcDifficulty extends JFrame {
         JButton button = new JButton("Hard");
         button.addActionListener((e) -> {
             frame.setDifficulty(Difficulty.DIFFICULTY_Hard);
+            frame.setPvc(true);
             this.setVisible(false);
         });
         button.setLocation(WIDTH / 2, HEIGHT / 10 + 50);
+        button.setSize(100, 30);
+        button.setFont(new Font("Rockwell", Font.BOLD, 13));
+        add(button);
+    }
+
+    private void addOff() {
+        JButton button = new JButton("Off");
+        button.addActionListener((e) -> {
+            frame.setPvc(false);
+            this.setVisible(false);
+        });
+        button.setLocation(WIDTH / 2-120, HEIGHT / 10 + 90);
         button.setSize(100, 30);
         button.setFont(new Font("Rockwell", Font.BOLD, 13));
         add(button);
