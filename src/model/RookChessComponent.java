@@ -63,7 +63,7 @@ public class RookChessComponent extends ChessComponent {
 
     public RookChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor color, ClickController listener, int size,ChessComponent[][] chessComponents) {
         super(chessboardPoint, location, color, listener, size,chessComponents);
-        super.point=5;
+        super.point=4;
         if (color == ChessColor.WHITE) {
             super.name='r';
         } else if (color == ChessColor.BLACK) {
