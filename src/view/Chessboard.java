@@ -33,12 +33,15 @@ public class Chessboard extends JComponent {
     private final int CHESS_SIZE;
     private JLabel playerLabel;
     private Difficulty difficulty;
+    private boolean PvcMode = false;
 
     public void setPvcMode(boolean pvcMode) {
         PvcMode = pvcMode;
     }
 
-    private boolean PvcMode = false;
+    public boolean isPvcMode() {
+        return PvcMode;
+    }
 
     public Difficulty getDifficulty() {
         return difficulty;
@@ -162,7 +165,6 @@ public class Chessboard extends JComponent {
         move1 = movable.get(random.nextInt(movable.size()));
         move2 = move1.canMovePoints().get(random.nextInt(move1.canMovePoints().size()));
         swapChessComponents(move1, move2);
-        swapColor();
     }
 
     public void AiMoveHard() {
@@ -204,27 +206,24 @@ public class Chessboard extends JComponent {
         }
         move2 = movablePoints.get(random.nextInt(movablePoints.size()));
         swapChessComponents(move1, move2);
-        swapColor();
     }
 
     public void swapColor() {
         if (currentColor == ChessColor.BLACK)
             currentColor = ChessColor.WHITE;
         else if (currentColor == ChessColor.WHITE) {
-            currentColor = ChessColor.BLACK;
-            if (PvcMode) {
-                if (getDifficulty() == Difficulty.DIFFICULTY_Normal) {
-                    AiMoveNormal();
-                } else if (getDifficulty() == Difficulty.DIFFICULTY_Hard) {
+            if (isPvcMode()){
+                if (getDifficulty()==Difficulty.DIFFICULTY_Normal) AiMoveNormal();
+                else if (getDifficulty()==Difficulty.DIFFICULTY_Hard||getDifficulty()==Difficulty.DIFFICULTY_Hell)
                     AiMoveHard();
-                } else if (getDifficulty() == Difficulty.DIFFICULTY_Hell) {
-                    AiMoveHard();
-                }
+                checkWarning();
+                return;
             }
+            currentColor = ChessColor.BLACK;
         }
+        checkWarning();
         if (currentColor == ChessColor.BLACK) playerLabel.setText("Black");
         if (currentColor == ChessColor.WHITE) playerLabel.setText("White");
-        checkWarning();
     }
 
     private void initRookOnBoard(int row, int col, ChessColor color) {
@@ -354,16 +353,20 @@ public class Chessboard extends JComponent {
                     break;
                 }
             }
+            if (currentKing != null) break;
         }
+        boolean warning = false;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (chessComponents[i][j].canMovePoints().contains(currentKing)) {
+                if (chessComponents[i][j] != null && chessComponents[i][j].canMovePoints().contains(currentKing)) {
                     if (currentColor != ChessColor.BLACK || !PvcMode) {
                         JOptionPane.showMessageDialog(this, "You are in check.");
                     }
+                    warning = true;
                     break;
                 }
             }
+            if (warning) break;
         }
     }
 }

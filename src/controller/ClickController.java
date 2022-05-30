@@ -1,7 +1,9 @@
 package controller;
 
 
+import model.ChessColor;
 import model.ChessComponent;
+import model.Difficulty;
 import view.Chessboard;
 
 public class ClickController {
@@ -35,7 +37,6 @@ public class ClickController {
                 //repaint in swap chess method.
                 chessboard.swapChessComponents(first, chessComponent);
                 chessboard.swapColor();
-
                 first.setSelected(false);
                 for (int i = 0; i < first.canMovePoints().size(); i++) {
                     first.canMovePoints().get(i).repaint();
